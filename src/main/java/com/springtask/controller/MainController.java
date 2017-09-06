@@ -1,5 +1,6 @@
 package com.springtask.controller;
 
+import com.springtask.about.AboutApplication;
 import com.springtask.entity.User;
 import com.springtask.entity.request.AddUserRequest;
 import com.springtask.repository.MainRepository;
@@ -39,6 +40,11 @@ public class MainController {
         user.setGender(addUserRequest.getGender());
         user.setNationality(addUserRequest.getNationality());
         mainRepository.save(user);
+    }
+
+    @RequestMapping(value = "about", method = RequestMethod.GET)
+    public AboutApplication getAboutInformation() {
+        return new AboutApplication();
     }
 
 }
