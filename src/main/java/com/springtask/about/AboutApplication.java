@@ -1,12 +1,12 @@
 package com.springtask.about;
 
-import com.springtask.content.StaticContent;
 import org.springframework.boot.jackson.JsonComponent;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -19,18 +19,20 @@ public class AboutApplication {
     private String autor;
     private String title;
 
+    private static long startTimeOfApp;
+
     public AboutApplication() {
         this.autor = "Sergey Vasiliev";
         this.title = "Spring task applicaion";
     }
 
     public String getWorkingTimeOfApp() {
+        long duration = new Date().getTime() - startTimeOfApp;
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Kiev"));
+        calendar.setTimeInMillis(duration);
 
-        long totalTime = System.currentTimeMillis() - StaticContent.getStartTimeOfApp();
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Kiev")); // TODO: 9/6/17 getTimeZone
-        calendar.setTimeInMillis(totalTime);
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-        return format.format(calendar.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+        return format.format(calendar);
     }
 
     public String getAutor() {
@@ -55,5 +57,9 @@ public class AboutApplication {
 
     public String getTitle() {
         return title;
+    }
+
+    public static void setStartTimeOfApp() {
+        startTimeOfApp = new Date().getTime();
     }
 }

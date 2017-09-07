@@ -1,4 +1,4 @@
-package com.springtask.schedule;
+package com.springtask.statistics;
 
 import com.springtask.entity.Statistic;
 import com.springtask.entity.User;
@@ -17,16 +17,26 @@ import java.util.List;
  */
 
 @Component
-public class SaveStatistics {
+public class ScheduleTask {
+
+    private final short numberOfMinutesForStatistics = 1;
+    private final short numberOfMinutesForRemovingUsers = 2;
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private StatisticRepository statisticRepository;
 
-    //@Scheduled(cron = "0 0/1 * * * ?") // fires every 1 minutes
-    @Scheduled(fixedRate = 20000)
+    @Scheduled(cron = "0 0/1 * * * ?") // fires every 1 minutes
+    //@Scheduled(fixedRate = 10000) //fires every 10 seconds
     public void run() {
+
+        saveStatistics();
+        removeOldUsers();
+
+    }
+
+    public void saveStatistics() {
 
         class NationCounter {
 
@@ -49,10 +59,10 @@ public class SaveStatistics {
         }
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, -1);
+        calendar.add(Calendar.MINUTE, -numberOfMinutesForStatistics);
 
         Statistic statistic = new Statistic();
-        
+
         List<User> users = userRepository.findByDateGreaterThanEqual(calendar.getTime());
 
         statistic.setNumberOfUsers(users.size());
@@ -77,6 +87,15 @@ public class SaveStatistics {
         statistic.setNumberOfFemales(numberOfFemales);
         statistic.setNumberOfNationalities(nCounter.toString());
         statisticRepository.save(statistic);
+    }
+
+    private void removeOldUsers() {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, -numberOfMinutesForRemovingUsers);
+
+        userRepository.removeByDateLessThanEqual(calendar.getTime());
 
     }
+
 }

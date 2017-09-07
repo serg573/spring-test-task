@@ -54,7 +54,7 @@ public class Statistic {
         this.date = date;
     }
 
-    public String getFormattedDate() {
+    public String getCreationDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 

@@ -14,6 +14,6 @@ import java.util.List;
 public interface StatisticRepository extends JpaRepository<Statistic, Long> {
 
     @Transactional
-    List<Statistic> removeByDateLessThanEqual(Date date);
+    void removeByDateLessThanEqual(Date date);
 
 }

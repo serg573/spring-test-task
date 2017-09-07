@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,7 +21,6 @@ public class User {
 
     @Id
     private String id;
-    @JsonIgnore
     private Date date;
     private String loginName;
     private String password;
@@ -45,6 +46,14 @@ public class User {
         return date;
     }
 
+    public String getCreationDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        return format.format(calendar.getTime());
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
@@ -58,7 +67,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return password.equals("")  ? "" : "*****";
     }
 
     public void setPassword(String password) {
