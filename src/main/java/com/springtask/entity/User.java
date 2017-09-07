@@ -1,5 +1,7 @@
 package com.springtask.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -17,6 +19,7 @@ public class User {
 
     @Id
     private String id;
+    @JsonIgnore
     private Date date;
     private String loginName;
     private String password;
@@ -37,6 +40,7 @@ public class User {
         this.id = id;
     }
 
+    @JsonIgnore
     public Date getDate() {
         return date;
     }

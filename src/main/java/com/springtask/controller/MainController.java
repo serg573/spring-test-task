@@ -1,14 +1,18 @@
 package com.springtask.controller;
 
 import com.springtask.about.AboutApplication;
+import com.springtask.entity.Statistic;
 import com.springtask.entity.User;
 import com.springtask.entity.request.AddUserRequest;
-import com.springtask.repository.MainRepository;
+import com.springtask.repository.StatisticRepository;
+import com.springtask.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -18,16 +22,23 @@ import java.util.List;
 @RestController
 public class MainController {
 
-    private MainRepository mainRepository;
+    private UserRepository userRepository;
+    private StatisticRepository statisticRepository;
 
     @Autowired
-    public MainController(MainRepository mainRepository) {
-        this.mainRepository = mainRepository;
+    public MainController(UserRepository userRepository, StatisticRepository statisticRepository) {
+        this.userRepository = userRepository;
+        this.statisticRepository = statisticRepository;
     }
 
     @RequestMapping(value = "users", method = RequestMethod.GET)
     public List<User> findAllUsers() {
-        return mainRepository.findAll();
+        return userRepository.findAll();
+    }
+
+    @RequestMapping(value = "statistic", method = RequestMethod.GET)
+    public List<Statistic> findAllStatistic() {
+        return statisticRepository.findAll();
     }
 
     @RequestMapping(value = "adduser", method = RequestMethod.POST)
@@ -38,7 +49,7 @@ public class MainController {
         user.setAge(addUserRequest.getAge());
         user.setGender(addUserRequest.getGender());
         user.setNationality(addUserRequest.getNationality());
-        mainRepository.save(user);
+        userRepository.save(user);
     }
 
     @RequestMapping(value = "about", method = RequestMethod.GET)
