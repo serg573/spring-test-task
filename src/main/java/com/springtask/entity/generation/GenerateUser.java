@@ -51,7 +51,7 @@ public class GenerateUser {
     }
 
     private User.Nationality getNewNationalityForNewUser() {
-        int numberOfNationality = rand.nextInt(User.Nationality.values().length); // TODO: 9/8/17 check it
+        int numberOfNationality = rand.nextInt(User.Nationality.values().length);
         User.Nationality[] nationalities = User.Nationality.values();
         return nationalities[numberOfNationality];
 

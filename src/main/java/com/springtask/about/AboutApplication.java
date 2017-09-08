@@ -5,6 +5,8 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -19,7 +21,7 @@ public class AboutApplication {
     private String autor;
     private String title;
 
-    private static long startTimeOfApp;
+    private static LocalDateTime startTime;
 
     public AboutApplication() {
         this.autor = "Sergey Vasiliev";
@@ -27,12 +29,9 @@ public class AboutApplication {
     }
 
     public String getWorkingTimeOfApp() {
-        long duration = new Date().getTime() - startTimeOfApp;
-        Calendar calendar = Calendar.getInstance(); //TimeZone.getTimeZone("Europe/Kiev")
-        calendar.setTimeInMillis(duration);
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss"); //"yyyy.MM.dd hh:mm:ss"
-        format.setTimeZone(TimeZone.getDefault());
-        return format.format(calendar.getTime());
+        LocalDateTime currentTime = LocalDateTime.now();
+        Duration duration = Duration.between(startTime, currentTime);
+        return formatDuration(duration);
     }
 
     public String getAutor() {
@@ -41,7 +40,7 @@ public class AboutApplication {
 
     public String getRam_using() {
 
-        // TODO: 9/6/17 getRam_using
+        // TODO: 9/6/17 discuss getRam_using
 
         MemoryMXBean memoryMxBean = ManagementFactory.getMemoryMXBean();
         MemoryUsage memUsage = memoryMxBean.getHeapMemoryUsage();
@@ -60,7 +59,18 @@ public class AboutApplication {
     }
 
     public static void setStartTimeOfApp() {
-        startTimeOfApp = new Date().getTime();
+        startTime = LocalDateTime.now();
+    }
+
+    private String formatDuration(Duration duration) {
+        long seconds = duration.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = String.format(
+                "%d:%02d:%02d",
+                absSeconds / 3600,
+                (absSeconds % 3600) / 60,
+                absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
 
 }
