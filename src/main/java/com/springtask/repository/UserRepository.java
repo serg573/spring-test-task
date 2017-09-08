@@ -2,6 +2,7 @@ package com.springtask.repository;
 
 import com.springtask.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,9 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByDateGreaterThanEqual(Date date);
+
+    //@Query("SELECT COUNT(u) FROM USER u")
+    //Long count();
 
     @Transactional
     void removeByDateLessThanEqual(Date date);

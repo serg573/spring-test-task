@@ -28,11 +28,11 @@ public class AboutApplication {
 
     public String getWorkingTimeOfApp() {
         long duration = new Date().getTime() - startTimeOfApp;
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Kiev"));
+        Calendar calendar = Calendar.getInstance(); //TimeZone.getTimeZone("Europe/Kiev")
         calendar.setTimeInMillis(duration);
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
-        return format.format(calendar);
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss"); //"yyyy.MM.dd hh:mm:ss"
+        format.setTimeZone(TimeZone.getDefault());
+        return format.format(calendar.getTime());
     }
 
     public String getAutor() {
@@ -62,4 +62,5 @@ public class AboutApplication {
     public static void setStartTimeOfApp() {
         startTimeOfApp = new Date().getTime();
     }
+
 }

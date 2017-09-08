@@ -3,6 +3,7 @@ package com.springtask.controller;
 import com.springtask.about.AboutApplication;
 import com.springtask.entity.Statistic;
 import com.springtask.entity.User;
+import com.springtask.entity.generation.GenerateUser;
 import com.springtask.entity.request.AddUserRequest;
 import com.springtask.repository.StatisticRepository;
 import com.springtask.repository.UserRepository;
@@ -41,15 +42,20 @@ public class MainController {
         return statisticRepository.findAll();
     }
 
-    @RequestMapping(value = "adduser", method = RequestMethod.POST)
-    public void addUser(@RequestBody AddUserRequest addUserRequest) {
-        User user = new User();
-        user.setLoginName(addUserRequest.getLoginName());
-        user.setPassword(addUserRequest.getPassword());
-        user.setAge(addUserRequest.getAge());
-        user.setGender(addUserRequest.getGender());
-        user.setNationality(addUserRequest.getNationality());
-        userRepository.save(user);
+//    @RequestMapping(value = "adduser", method = RequestMethod.POST)
+//    public void addUser(@RequestBody AddUserRequest addUserRequest) {
+//        User user = new User();
+//        user.setLoginName(addUserRequest.getLoginName());
+//        user.setPassword(addUserRequest.getPassword());
+//        user.setAge(addUserRequest.getAge());
+//        user.setGender(addUserRequest.getGender());
+//        user.setNationality(addUserRequest.getNationality());
+//        userRepository.save(user);
+//    }
+
+    @RequestMapping(value = "adduser", method = RequestMethod.GET)
+    public void addUser() {
+        userRepository.save(new GenerateUser().getNewUser());
     }
 
     @RequestMapping(value = "about", method = RequestMethod.GET)
