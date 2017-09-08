@@ -5,8 +5,6 @@ import com.springtask.repository.UserRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.jws.soap.SOAPBinding;
 import java.util.Random;
 
 /**
@@ -41,11 +39,11 @@ public class GenerateUser {
 
     private String getNewPasswordForNewUser() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
-        return RandomStringUtils.random( 15, characters );
+        return RandomStringUtils.random( 8, characters );
     }
 
     private short getNewAgeForNewUser() {
-        return (short) ((short) rand.nextInt(115) + 7);  // suggest that the minimum age is seven years
+        return (short) (rand.nextInt(100) + 7);  // suggest that the minimum age is seven years
     }
 
     private User.Gender getNewGenderForNewUser() {

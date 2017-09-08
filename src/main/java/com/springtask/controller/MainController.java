@@ -25,6 +25,8 @@ public class MainController {
 
     private UserRepository userRepository;
     private StatisticRepository statisticRepository;
+    @Autowired
+    private GenerateUser generateUser;
 
     @Autowired
     public MainController(UserRepository userRepository, StatisticRepository statisticRepository) {
@@ -55,7 +57,7 @@ public class MainController {
 
     @RequestMapping(value = "adduser", method = RequestMethod.GET)
     public void addUser() {
-        userRepository.save(new GenerateUser().getNewUser());
+        userRepository.save(generateUser.getNewUser());
     }
 
     @RequestMapping(value = "about", method = RequestMethod.GET)

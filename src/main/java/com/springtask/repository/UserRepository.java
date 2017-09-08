@@ -18,9 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByDateGreaterThanEqual(Date date);
 
-    //@Query("SELECT COUNT(u) FROM USER u")
-    //Long count();
-
     @Transactional
     void removeByDateLessThanEqual(Date date);
 
