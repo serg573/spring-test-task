@@ -1,7 +1,6 @@
 package com.springtask.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.text.SimpleDateFormat;
@@ -67,7 +66,8 @@ public class User {
     }
 
     public String getPassword() {
-        return password.equals("")  ? "" : "*****";
+        //return password.equals("")  ? "" : "*****";
+        return this.password;
     }
 
     public void setPassword(String password) {

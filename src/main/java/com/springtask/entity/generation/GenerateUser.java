@@ -54,6 +54,5 @@ public class GenerateUser {
         int numberOfNationality = rand.nextInt(User.Nationality.values().length);
         User.Nationality[] nationalities = User.Nationality.values();
         return nationalities[numberOfNationality];
-
     }
 }

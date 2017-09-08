@@ -4,12 +4,8 @@ import org.springframework.boot.jackson.JsonComponent;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Created by Sergey Vasiliev on 9/6/17.
